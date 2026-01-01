@@ -37,6 +37,7 @@ impl Default for TimeApp {
 impl eframe::App for TimeApp {
     fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
         // --- LOGIC ---
+        //decrease timer if it's running (using frame delta time)
         if self.timer_running && self.timer_seconds > 0.0 {
             self.timer_seconds -= ctx.input(|i| i.stable_dt) as f64;
             self.has_triggered = false; // Reset guard while running
@@ -45,13 +46,13 @@ impl eframe::App for TimeApp {
                 self.timer_seconds = 0.0;
 
                 if !self.has_triggered {
-                    ctx.send_viewport_cmd(egui::ViewportCommand::WindowLevel(egui::WindowLevel::AlwaysOnBottom));
+                    ctx.send_viewport_cmd(egui::ViewportCommand::WindowLevel(egui::WindowLevel::AlwaysOnTop));
                     ctx.send_viewport_cmd(egui::ViewportCommand::MousePassthrough(true));
 
                     let ctx_clone = ctx.clone();
                     std::thread::spawn(move || {
                     alerts::trigger_timer_end(&ctx_clone); // <-- Start module alerts.rs function trigger_timer_end()
-                    ctx_clone.send_viewport_cmd(egui::ViewportCommand::WindowLevel(egui::WindowLevel::AlwaysOnTop));
+                    ctx_clone.send_viewport_cmd(egui::ViewportCommand::WindowLevel(egui::WindowLevel::AlwaysOnBottom));
                     ctx_clone.send_viewport_cmd(egui::ViewportCommand::MousePassthrough(false));
                     ctx_clone.send_viewport_cmd(egui::ViewportCommand::Focus);
                     ctx_clone.request_repaint();
@@ -74,7 +75,7 @@ impl eframe::App for TimeApp {
             
 
             // 1. Calculate a changing Hue (0.0 to 1.0) based on time
-            // ctx.input(|i| i.time) gives seconds since the app started
+            // ctx.input(|i| i.time) gives secons since the app started
             let seconds = ctx.input(|i| i.time);
             let hue = (seconds * 0.2) % 1.0; // Change 0.2 to speed up/slow down
 
@@ -101,7 +102,7 @@ impl eframe::App for TimeApp {
                 ui.add(
                     egui::Slider::new(&mut self.duration, 1.0..=7200.0)
                         .text("s")
-                        .logarithmic(true) // Helpful for Large ranges (1s to 2hr)
+                        .logarithmic(true) // Helpful for Large ranges (1s to 1hr)
                 );
                 ui.label(
                         egui::RichText::new(format!("{:.1}s", self.timer_seconds))
