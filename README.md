@@ -2,7 +2,7 @@
 
 Simple timer written in Rust to help me keep track of screen time.
 
-First project to learn rust.
+First project to learn rust. Currently only works for WindowsOS
 
 The program is a clock with a timer you set using a slider from 1 second to 7200 seconds (2 hours),
 
