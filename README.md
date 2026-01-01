@@ -11,8 +11,9 @@ Make the program compatible with linux and macos.
 Figure out more trolling methods to force users to break their focus and recongize how much time they have spent on the computer.
 
 +++How to install+++
-install rustup
-cd into directory
-cargo build
-cd into target\debug
+install rustup.
+copy your mp3 file into the src file, and then edit alerts.rs lines 6 and 20 with the file path to your chosen mp3.
+cd into directory.
+cargo build.
+cd into target\debug.
 your Timer.exe should be inside folder.
