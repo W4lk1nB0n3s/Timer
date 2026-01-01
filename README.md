@@ -21,13 +21,13 @@ Figure out more trolling methods to force users to break their focus and recongi
 
 install rustup.
 
-copy your mp3 file into the src file, and then edit alerts.rs lines 6 and 20 with the file path to your chosen mp3.
+copy your mp3 file into the assets file, and then edit alerts.rs lines 21 with the name of your mp3 file.
 
 cd into directory.
 
-cargo build.
+cargo build --release.
 
-cd into target\debug.
+cd into target\release\
 
 your Timer.exe should be inside folder.
 
