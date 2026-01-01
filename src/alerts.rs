@@ -8,12 +8,10 @@ struct Asset;
 
 pub fn trigger_timer_end(_ctx: &egui::Context) {
     // 1. Initialize the output stream using the new Builder API
-    // Replacing OutputStream::try_default()
     let stream_handle = OutputStreamBuilder::open_default_stream()
         .expect("Failed to open default output stream");
     
     // 2. Initialize the sink using the mixer from the stream handle
-    // Replacing Sink::try_new(&handle)
     let sink = Sink::connect_new(stream_handle.mixer());
 
     // 3. Load embedded file
