@@ -3,7 +3,7 @@ use rodio::{Decoder, OutputStreamBuilder, Sink};
 use std::io::Cursor;
 
 #[derive(Embed)]
-#[folder = "E:/RustProjects/programwindow/Timer/src/rickrolll.mp3"] 
+#[folder = "File\path\to\your.mp3"] 
 struct Asset;
 
 pub fn trigger_timer_end(_ctx: &egui::Context) {
@@ -17,7 +17,7 @@ pub fn trigger_timer_end(_ctx: &egui::Context) {
     let sink = Sink::connect_new(stream_handle.mixer());
 
     // 3. Load embedded file
-    let embedded_file = Asset::get("E:/RustProjects/programwindow/Timer/src/rickrolll.mp3")
+    let embedded_file = Asset::get("File\path\to\your.mp3")
         .expect("rickrolll.mp3 not found in assets/");
 
     // 4. Wrap bytes in Cursor for decoding
